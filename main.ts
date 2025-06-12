@@ -100,7 +100,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {  // #5
         current_jump += 1
     }
 })
-scene.onOverlapTile(SpriteKind.Player, img` `, function(sprite: Sprite, location: tiles.Location) {
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile5`, function(sprite: Sprite, location: tiles.Location) {
     
 })
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (enemySprite: EnemySprite, playerSprite: PlayerSprite) {
