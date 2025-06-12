@@ -101,7 +101,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {  // #5
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile5`, function(sprite: Sprite, location: tiles.Location) {
-    
+    sprites.destroy(missile)
 })
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (enemySprite: EnemySprite, playerSprite: PlayerSprite) {
     game.gameOver(false)
