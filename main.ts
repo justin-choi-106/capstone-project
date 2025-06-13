@@ -1,17 +1,26 @@
-
+namespace SpriteKind {
+    export const EF = SpriteKind.create()
+}
 let tilemaps = [assets.tilemap`0`, assets.tilemap`1`
     , assets.tilemap`2`,
 assets.tilemap`3`]
 loadLevel(0)
 let ph2 = tiles.getTilesByType(assets.tile`myTile5`)
-
+let cO: boolean = true
 const x = 8
 const y = 114
+let sEF = null
+let aliens: EnemySprite[] = [] 
+let cEF: boolean = false
 const width = 8
 let cF: boolean = false
 let wall = assets.tile`myTile14`
 const monsterMaxSpeed = 100
 let gameUpdate = 2000
+let ph3 = null
+let ph4 = null
+let ph1 = null
+
 let maximumProjectiles = 2
 let myPlayerSpeed = 100
 let monstersSpeed = 50
@@ -112,14 +121,31 @@ controller.A
         current_jump += 1
     }
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile5`, function(sprite: Sprite, location: tiles.Location) {
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile5`, function(sprite: PlayerSprite, location: tiles.Location) {
+    if (cO) {
+
+    cO = false
     sprites.destroy(missile)
-    cF == true
+    currentNumberOfProjectiles += 1
+    cF = true
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile9`, function(sprite: PlayerSprite, location: tiles.Location) {
+    loadLevel(1)
+
 })
 
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (enemySprite: EnemySprite, playerSprite: PlayerSprite) {
     game.gameOver(false)
-})
+ })
+// function createEnemies(rows: number, columns: number, spriteImage: Image, Kind: number): void {  // #15
+//     for (let i = 0; i < rows; i++) { // #6
+//         for (let i2 = 0; i2 < columns; i2++) {
+//             alien = new EnemySprite(spriteImage, Kind, normalHitpoints)
+//             aliens.push(alien)
+//         }
+//     }
+// }
 class EnemySprite extends sprites.ExtendableSprite {
     hitPoints: number
     hit(points: number, effects: effects.ParticleEffect, ms: number): void {
@@ -173,6 +199,25 @@ function phFWOSTA(array: tiles.Location[], who: Sprite): void {
 
     }
 }
+function ph1F(tile: Image, array: tiles.Location[], who: Sprite): void {
+    for (let i = 0; i < array.length; i++) {  // #7
+        alien = new EnemySprite(assets.image`myImage1`,SpriteKind.Enemy,normalHitpoints)
+        tiles.placeOnTile (who, array[i])  // #9
+        tiles.setTileAt(array[i], tile)
+        aliens.push(alien)
+        cEF = true
+    }
+}
+game.onUpdateInterval(3000, function() {
+    if (cEF)  {
+    for (let i = 0; i < aliens.length; i++) {
+        sEF = new ProjectileSprite(assets.image`myImage2`, SpriteKind.EF)
+        sEF.setP(aliens[i].x,aliens[i].y)
+        sEF.speed(50,0)
+        sEF.sF(SpriteFlag.AutoDestroy, true)
+    }
+    }
+})
 phF(assets.tile`myTile7`, ph, hero)
 phFWOSTA(ph2,missile)
 function loadLevel(lvl: number): void { // #1
@@ -183,8 +228,11 @@ function loadLevel(lvl: number): void { // #1
      }
     else if (lvl == 1) {
         // tiles.setCurrentTilemap(assets.tilemap`2`)
-        // let ph2 = tiles.getTilesByType(assets.tile`myTile10`)
-
+        let ph4 = tiles.getTilesByType(assets.tile`myTile15`)
+        let ph1 = tiles.getTilesByType(assets.tile`myTile6`)
+        let ph3 = tiles.getTilesByType(assets.tile`myTile10`)
+        ph1F(assets.tile`myTile7`,ph1, alien)
+        phF(assets.tile`myTile7`,ph4,hero)
         // phF(assets.tile`myTile1`, ph2, hero)
     } else if (lvl == 2) {
     } else {
@@ -551,6 +599,8 @@ function animatingMissile() {
             100,
             false
         )
+    } else {
+        missile.setImage(assets.image`myImage0`)
     }
 }
 
