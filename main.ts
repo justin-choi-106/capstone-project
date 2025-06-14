@@ -202,7 +202,7 @@ function phFWOSTA(array: tiles.Location[], who: Sprite): void {
 function ph1F(tile: Image, array: tiles.Location[], who: Sprite): void {
     for (let i = 0; i < array.length; i++) {  // #7
         alien = new EnemySprite(assets.image`myImage1`,SpriteKind.Enemy,normalHitpoints)
-        tiles.placeOnTile (who, array[i])  // #9
+        tiles.placeOnTile(who, array[i])  // #9
         tiles.setTileAt(array[i], tile)
         aliens.push(alien)
         cEF = true
@@ -213,7 +213,7 @@ game.onUpdateInterval(3000, function() {
     for (let i = 0; i < aliens.length; i++) {
         sEF = new ProjectileSprite(assets.image`myImage2`, SpriteKind.EF)
         sEF.setP(aliens[i].x,aliens[i].y)
-        sEF.speed(50,0)
+        sEF.speed(-50,0)
         sEF.sF(SpriteFlag.AutoDestroy, true)
     }
     }
@@ -223,10 +223,7 @@ phFWOSTA(ph2,missile)
 function loadLevel(lvl: number): void { // #1
     tiles.setCurrentTilemap(tilemaps[lvl])
 
-    if (lvl == 0) { 
-
-     }
-    else if (lvl == 1) {
+    if (lvl == 1) {
         // tiles.setCurrentTilemap(assets.tilemap`2`)
         let ph4 = tiles.getTilesByType(assets.tile`myTile15`)
         let ph1 = tiles.getTilesByType(assets.tile`myTile6`)
