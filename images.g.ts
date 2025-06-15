@@ -251,3 +251,9 @@ f 6 1 1 1 1 1 6 6 6 6 6 6 c . .
 
 }
 // Auto-generated code. Do not edit.
+
+// Auto-generated code. Do not edit.
+namespace myTiles {
+
+}
+// Auto-generated code. Do not edit.
